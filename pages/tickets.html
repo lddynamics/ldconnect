@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L&D Connect - Mes Tickets</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/futils.css">
+    <link rel="stylesheet" href="../css/tickets.css">
+</head>
+
+<body>
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <a href="#" class="navbar-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <span class="logo-text">L&D Connect</span>
+            </a>
+
+            <!-- Menu Navigation -->
+            <ul class="navbar-menu" id="navbarMenu">
+                <li class="navbar-item">
+                    <a href="../pages/dashboard.html" class="navbar-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="navbar-item">
+                    <a href="../pages/tickets.html" class="navbar-link active">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Mes Tickets</span>
+                    </a>
+                </li>
+                <li class="navbar-item">
+                    <a href="../pages/tarifs.html" class="navbar-link">
+                        <i class="fas fa-tag"></i>
+                        <span>Mes Tarifs</span>
+                    </a>
+                </li>
+                <li class="navbar-item">
+                    <a href="../pages/parametre.html" class="navbar-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </li>
+
+            </ul>
+            <!-- User Menu -->
+            <div class="user-menu">
+                <button class="user-trigger" id="userTrigger">
+                    <img src="https://i.pravatar.cc/40" alt="User Avatar" class="user-avatar">
+                    <span class="user-name"></span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="../pages/parametre.html" class="dropdown-item">
+                        <i class="fas fa-user"></i>
+                        Profil
+                    </a>
+                    <button class="dropdown-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu burger (mobile) -->
+            <div class="navbar-toggle" id="navbarToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main-content">
+        <div class="page-header">
+            <div class="page-info">
+                <h1>Mes Tickets</h1>
+                <p>Gérez vos tickets Wi-Fi et importez-en en masse</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" id="btnImport">
+                    <i class="fas fa-file-excel"></i> Importer mes tickets
+                </button>
+                <button class="btn btn-primary" id="btnAdd">
+                    <i class="fas fa-plus"></i> Ajouter un ticket
+                </button>
+            </div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <label class="filter-label">Rechercher</label>
+                <input type="text" class="filter-input" id="searchInput" placeholder="Rechercher par Username, password...">
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Tarif</label>
+                <select class="filter-select" id="filterTarif">
+                    <option value="">Tous les tarifs</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">État</label>
+                <select class="filter-select" id="filterStatus">
+                    <option value="">Tous les états</option>
+                    <option value="ACTIVE">Actif</option>
+                    <option value="SOLD">Vendu</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-card">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Tarif (Prix)</th>
+                            <th>État</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ticketsBody"></tbody>
+
+                        <!--Spiner de chargement-->
+                        <tr id="tableSpinner" style="display:none">
+                            <td colspan="6" class="text-center py-5">
+                                <i class="fas fa-spinner fa-spin fa-2x text-primary"></i>
+                            </td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL ADD TICKET -->
+    <div class="modal-overlay" id="modalAdd">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-plus-circle"></i> Ajouter un ticket</h2>
+                <button class="modal-close" onclick="closeModal('modalAdd')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Tarif</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-tags input-icon"></i>
+                        <select class="form-select" id="addTarif"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Type de ticket</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-random input-icon"></i>
+                        <select class="form-select" id="addType">
+                            <option value="separate">Username & Password</option>
+                            <option value="same">Username = Password</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="groupUsername">
+                    <label class="form-label">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-input" id="addUsername" placeholder="ex: user123">
+                    </div>
+                </div>
+                <div class="form-group" id="groupPassword">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="text" class="form-input" id="addPassword" placeholder="ex: pass456">
+                    </div>
+                </div>
+                <div class="form-group" id="groupCode" style="display:none">
+                    <label class="form-label">Code Voucher</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-key input-icon"></i>
+                        <input type="text" class="form-input" id="addCode" placeholder="ex: CODE789">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeModal('modalAdd')">Annuler</button>
+                <button class="btn-modal btn-save" onclick="saveTicket()">Ajouter le ticket</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL IMPORT -->
+    <div class="modal-overlay" id="modalImport">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Importer des tickets</h2>
+                <button class="modal-close" onclick="closeModal('modalImport')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Tarif</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-tags input-icon"></i>
+                        <select class="form-select" id="importTarif"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Type de ticket</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-random input-icon"></i>
+                        <select class="form-select" id="importType">
+                            <option value="separate">Username & Password</option>
+                            <option value="same">Username = Password</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Généré par</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-industry input-icon"></i>
+                        <select class="form-select">
+                            <option value="MINKHMOND">MIKHMON</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-file-excel"></i> Fichier CSV</label>
+                    <input type="file" id="importFile" class="form-input form-file" accept=".csv" />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeModal('modalImport')">Annuler</button>
+                <button class="btn-modal btn-save" onclick="importTickets()">Importer</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL VIEW TICKET -->
+    <div class="modal-overlay" id="modalViewTicket">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-eye"></i> Détails du ticket
+                </h2>
+                <button class="modal-close" onclick="closeModal('modalViewTicket')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="details-grid">
+                    <div><strong>Username :</strong> <span id="dUsername"></span></div>
+                    <div><strong>Password :</strong> <span id="dPassword"></span></div>
+                    <div><strong>Prix :</strong> <span id="dPrice"></span></div>
+                    <div><strong>Durée :</strong> <span id="dDuration"></span></div>
+                    <div><strong>Validité :</strong> <span id="dValidity"></span></div>
+                    <div><strong>État :</strong> <span id="dState"></span></div>
+                    <div><strong>Date de vente :</strong> <span id="dSoldAt"></span></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeModal('modalViewTicket')">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p><strong>L&D Connect</strong> © 2026 — Tous droits réservés</p>
+            </div>
+
+            <div class="footer-center">
+                <a href="../politicon.html">Conditions d’utilisation</a>
+                <a href="../politicon.html">Politique de confidentialité</a>
+            </div>
+
+            <div class="footer-right">
+                <span>Contact :</span>
+                <a href="mailto:lddynamics2@gmail.com">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://wa.me/22959287815" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="../js/authGuard.js"></script>
+    <script src="../js/futils.js"> </script>
+    <script src="../js/tickets.js"></script>
+
+</body>
+
+</html>

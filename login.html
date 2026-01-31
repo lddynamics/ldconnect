@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L&D Connect - Connexion</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- En-tête -->
+        <div class="login-header">
+            <h1 class="logo">L&D Connect</h1>
+            <p class="subtitle">Plateforme de gestion des tickets Wi-Fi</p>
+        </div>
+
+        <!-- Messages (erreur/succès) -->
+        <div class="error-message" id="errorMessage">
+            ⚠️ Email ou mot de passe incorrect
+        </div>
+        <div class="success-message" id="successMessage">
+            ✓ Connexion réussie ! Redirection en cours...
+        </div>
+
+        <!-- Formulaire de connexion -->
+        <form class="login-form" id="loginForm">
+            <!-- Champ Email/Nom d'utilisateur -->
+            <div class="form-group">
+                <label for="email">Email ou nom d'utilisateur</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="votre@email.com"
+                        required
+                    >
+                    <span class="input-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+
+                </div>
+            </div>
+
+            <!-- Champ Mot de passe -->
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="••••••••"
+                        required
+                    >
+                    <span class="input-icon">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Options (Se souvenir / Mot de passe oublié) -->
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Se souvenir de moi</label>
+                </div>
+                <a href="pages/forget_password.html" class="forgot-password">Mot de passe oublié ?</a>
+            </div>
+
+            <!-- Bouton de connexion -->
+            <button type="submit" class="login-button">
+                Se connecter
+            </button>
+        </form>
+
+        <!-- Lien vers login -->
+        <div class="signup-link">
+            <p>Pas de compte ? <a href="#">S'inscrire</a></p>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="login-footer">
+            <p>&copy; 2026 L&D Connect. Tous droits réservés.</p>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

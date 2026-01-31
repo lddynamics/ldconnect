@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L&D Connect - Inscription</title>
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="signup-wrapper">
+        
+        <!-- Section illustration (gauche) -->
+        <div class="illustration-section">
+            <div class="illustration-content">
+                <div class="illustration-icon">
+                    <img src="images/ticket.png" alt="Tickets Wifi">
+                </div>
+                <h2 class="illustration-title">Bienvenue sur L&D Connect</h2>
+                <p class="illustration-text">
+                    Gérez vos tickets Wi-Fi en toute simplicité.
+                    Rejoignez notre plateforme sécurisée et moderne pour optimiser
+                    vos ventes de tickets Wifi.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section formulaire (droite) -->
+        <div class="form-section">
+            <!-- En-tête -->
+            <div class="form-header">
+                <h1 class="logo">L&D Connect</h1>
+                <h2 class="form-title">Créer un compte</h2>
+                <p class="form-subtitle">Remplissez les informations ci-dessous</p>
+            </div>
+
+            <!-- Messages (erreur/succès) -->
+            <div class="error-message" id="errorMessage">
+                ⚠️ Veuillez corriger les erreurs dans le formulaire
+            </div>
+            <div class="success-message" id="successMessage">
+                ✓ Inscription réussie ! Redirection en cours...
+            </div>
+
+            <!-- Formulaire d'inscription -->
+            <form class="signup-form" id="signupForm" novalidate>
+                <!-- Nom du Wi-Fi -->
+                <div class="form-group">
+                    <label for="wifiName">
+                        Nom du Wi-Fi <span class="required">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" id="wifiName" name="wifiName" class="form-input"
+                            placeholder="Ex: Mon Hotspot WiFi" required>
+                        <span class="validation-icon" id="wifiNameIcon"></span>
+                    </div>
+                    <p class="error-text" id="wifiNameError">Le nom du Wi-Fi est requis</p>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">
+                        Email <span class="required">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" class="form-input" placeholder="votre@email.com"
+                            required>
+                        <span class="validation-icon" id="emailIcon"></span>
+                    </div>
+                    <p class="error-text" id="emailError">Veuillez entrer un email valide</p>
+                </div>
+
+                <!-- Contact -->
+                <div class="form-group">
+                    <label for="contact">
+                        Contact (téléphone) <span class="required">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="tel" id="contact" name="contact" class="form-input"
+                            placeholder="+229 01 XX XX XX XX" required>
+                        <span class="validation-icon" id="contactIcon"></span>
+                    </div>
+                    <p class="help-text">Format: +229 01 XX XX XX XX</p>
+                    <p class="error-text" id="contactError">Numéro de téléphone invalide</p>
+                </div>
+
+                <!-- Mot de passe -->
+                <div class="form-group">
+                    <label for="password">
+                        Mot de passe <span class="required">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" class="form-input" placeholder="••••••••"
+                            required>
+                        <span class="validation-icon" id="passwordIcon"></span>
+                    </div>
+
+                    <!-- Indicateur de force du mot de passe -->
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bars">
+                            <div class="strength-bar" id="bar1"></div>
+                            <div class="strength-bar" id="bar2"></div>
+                            <div class="strength-bar" id="bar3"></div>
+                            <div class="strength-bar" id="bar4"></div>
+                        </div>
+                        <p class="strength-text" id="strengthText">Force du mot de passe</p>
+                    </div>
+
+                    <p class="help-text">Minimum 8 caractères avec majuscules, minuscules et chiffres</p>
+                    <p class="error-text" id="passwordError">Mot de passe trop faible</p>
+                </div>
+
+                <!-- Bouton d'inscription -->
+                <button type="submit" class="signup-button">
+                    S'inscrire
+                </button>
+            </form>
+
+            <!-- Lien vers login -->
+            <div class="login-link">
+                <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/signup.js"></script>
+</body>
+
+</html>
