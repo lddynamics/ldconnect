@@ -15,7 +15,35 @@
             justify-content: center;
             padding: 20px;
         }
+        /* Bouton loading */
+.login-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
 
+/* Spinner caché par défaut */
+.btn-spinner {
+    display: none;
+    font-size: 16px;
+}
+
+/* État loading */
+.login-button.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.login-button.loading .btn-text {
+    display: none;
+}
+
+.login-button.loading .btn-spinner {
+    display: inline-block;
+}
+ 
         /* Container principal */
         .login-container {
             background: white;
