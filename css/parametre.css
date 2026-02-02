@@ -165,6 +165,41 @@ body {
     font-size: 15px;
 }
 
+.btn-edit-key {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Spinner caché */
+.btn-edit-key .btn-spinner {
+    position: absolute;
+    display: none;
+    font-size: 14px;
+}
+
+/* Loading */
+.btn-edit-key.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn-edit-key.loading .btn-text {
+    visibility: hidden; /* garde la largeur */
+}
+
+.btn-edit-key.loading .btn-spinner {
+    display: inline-block;
+}
+
+
 /* Messages de notif */
 .notif {
     padding: 16px 20px;
