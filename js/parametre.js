@@ -112,14 +112,20 @@ function checkForChanges() {
 /* ========== FEDAPAY – DEMANDE OTP ========== */
 
 editFedapayBtn.addEventListener("click", async () => {
+    // 🔄 Activer le spinner
+    editFedapayBtn.classList.add("loading");
+    editFedapayBtn.setAttribute("disabled", "true");
+
     try {
         shownotification("loading", "Envoi du code de vérification...");
 
         const res = await fetch(
-            "https://ldconnect-backend.onrender.com/api/settings/fedapay/request",
+            "http://localhost:5000/api/settings/fedapay/request",
             {
                 method: "POST",
-                headers: { Authorization: `Bearer ${getToken()}` }
+                headers: {
+                    Authorization: `Bearer ${getToken()}`
+                }
             }
         );
 
@@ -134,6 +140,10 @@ editFedapayBtn.addEventListener("click", async () => {
     } catch (err) {
         console.error(err);
         shownotification("error", err.message || "Erreur lors de l’envoi du code");
+    } finally {
+        // ❌ Désactiver le spinner
+        editFedapayBtn.classList.remove("loading");
+        editFedapayBtn.removeAttribute("disabled");
     }
 });
 
