@@ -120,7 +120,7 @@ editFedapayBtn.addEventListener("click", async () => {
         shownotification("loading", "Envoi du code de vérification...");
 
         const res = await fetch(
-            "http://localhost:5000/api/settings/fedapay/request",
+            "https://ldconnect-backend.onrender.com/api/settings/fedapay/request",
             {
                 method: "POST",
                 headers: {
